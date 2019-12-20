@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--css-->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+
+    <!--js-->
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        .menu-pm {
+            margin-left: -14px;
+            height: 800px;
+            width: 143px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 1.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .table-emp {
+            margin-left: 260px;
+            margin-top: 10px;
+        }
+
+        li {
+            width: 143px;
+        }
+
+        ul {
+            margin-left: -15px;
+        }
+
+        a {
+            color: black;
+        }
+
+        .gtab {
+            width: 1580px;
+            margin-top: -14px;
+            margin-left: -222px;
+            background-color: #d4c9c9;
+        }
+
+        .btn-ed {
+            padding-bottom: 4px;
+            padding-top: 4px;
+        }
+
+        .home {
+            background-color: #8fd48f;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .search-pm {
+            width: 550px;
+            margin-top: 9px;
+            margin-left: 400px;
+        }
+
+        .btn-add {
+            margin-left: 131px;
+            margin-top: 145px;
+        }
+
+        .modal-crud {
+            width: 500px;
+            margin-left: 550px;
+        }
+
+        .inp-emp {
+            margin-left: 20px;
+            width: 176px;
+        }
+
+        .inp {
+            height: 26px;
+        }
+        .gender {
+        	margin-left: 16px;
+        	width: 176px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <ul class="nav nav-tabs gtab" style="background-color: #d4c9c9">
+            <li class="home"><a href="/" style="font-size: 22px">HOME</a></li>
+            <li class="search-pm">
+                <form action="/action_page.php">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search name, address, project,..."
+                            name="search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-2 menu-pm" style="background-color: #f1f1f1">
+        <ul class="nav nav-pills nav-stacked" style="font-size: 17px">
+            <li><a style="font-size: 20px" href="/">PM</a></li>
+            <li><a href="/employees">Employee</a></li>
+            <li><a href="/project">Project</a></li>
+            <li><a href="/officelocation">Office Location</a></li>
+            <li><a href="/assigned">Assigned</a></li>
+            <li><a href="/office">Office</a></li>
+            <li><a href="/relatives">Relatives</a></li>
+        </ul>
+    </div>
+
+    <button class="btn btn-success btn-add" data-toggle="modal" data-target="#addModal">Add an Employee +</button>
+    <div class="modal fade modal-crud" id="addModal" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Employee</h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/employees}" th:object="${employee}" method="post">
+                    <span style="margin-left: 120px">Id</span><input class="inp-emp" type="text" th:value="${employee.getId()}" th:field="*{id}"><br>
+                    <br> <span style="margin-left: 74px">Surname</span><input class="inp-emp" type="text"
+                        th:field="*{lastName}"><br>
+                    <br> <span style="margin-left: 70px">Mid name</span><input class="inp-emp" type="text"
+                        th:field="*{midName}"><br>
+                    <br> <span style="margin-left: 64px">First name</span><input class="inp-emp" type="text"
+                        th:field="*{firstName}"><br>
+                    <br> <span style="margin-left: 53px">Date of birth</span> 
+                    <select th:field="*{date}" style="margin-left: 16px" class="inp">
+                        <option value="1">Day</option>
+                        <option th:each="day : ${listDay}" th:value="${day}" th:text="${day}"></option>
+                    </select> <select th:field="*{month}" class="inp">
+                        <option value="Jan">Month</option>
+                        <option th:each="month : ${listMonth}" th:value="${month}" th:text="${month}"></option>
+                    </select> <select th:field="*{year}" class="inp">
+                        <option value="1905">Year</option>
+                        <option th:each="year : ${listYear}" th:value="${year}" th:text="${year}"></option>
+                    </select><br>
+                    <br> <span style="margin-left: 79px">Address</span><input class="inp-emp" type="text"
+                        th:field="*{address}"><br>
+                    <br> <span style="margin-left: 83px">Gender</span>
+                    <select class="inp gender" th:field="*{gender}">
+                    	<option value="Nam">Male</option>
+                    	<option value="Nữ">Female</option>	
+                    </select><br>
+                    <br> <span style="margin-left: 91px">Salary</span><input class="inp-emp" type="text"
+                        th:field="*{salary}"><br>
+                    <br> <span style="margin-left: 64px">ManagerId</span>
+                    <select class="inp gender" th:field="*{managerId}">
+                    	<option value="">Nope</option>
+                    	<option th:each="id : ${listManagerId}" th:value="${id}" th:text="${id}"></option>
+                    </select><br>
+                    <br> <span style="margin-left: 94px">Office</span>
+                    <select class="inp gender" th:field="*{office}">
+                    	<option th:each="office : ${listAllOffices}" th:value="${office}" th:text="${office}"></option>
+                    </select><br>
+                    <br>
+                    <button type="submit" class="btn btn-success" style="margin-left: 382px">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <table style="width: 72%" class="table-emp">
+        <thead style="background-color: #dddddd">
+            <tr style="height: 28px">
+                <th>ID</th>
+                <th>LASTNAME</th>
+                <th>MIDNAME</th>
+                <th>FIRSTNAME</th>
+                <th>DATEOFBIRTH</th>
+                <th>ADDRESS</th>
+                <th>GENDER</th>
+                <th>SALARY</th>
+                <th>MANAGERID</th>
+                <th>OFFICE</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="emp : ${listAllEmployees}">
+                <td><span th:text="*{emp.getId()}"></span></td>
+                <td><span th:text="*{emp.getLastName()}"></span></td>
+                <td><span th:text="*{emp.getMidName()}"></span></td>
+                <td><span th:text="*{emp.getFirstName()}"></span></td>
+                <td><span th:text="*{emp.getDateOfBirth()}"></span></td>
+                <td><span th:text="*{emp.getAddress()}"></span></td>
+                <td><span th:text="*{emp.getGender()}"></span></td>
+                <td><span th:text="*{emp.getSalary()}"></span></td>
+                <td><span th:text="*{emp.getManagerId()}"></span></td>
+                <td><span style="margin-left: 44px" th:text="*{emp.getOffice()}"></span></td>
+                <td style="text-align: center">
+                    <a th:href="@{/employees/edit/{id}(id=${emp.getId()})}" class="btn btn-success btn-ed">Edit</a>
+                </td>
+                <td style="text-align: center">
+                    <a th:attr="data-href=@{/employees/delete/{id}(id=${emp.getId()})}" class="btn btn-danger btn-ed" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                    <div style="margin-top: 250px; text-align: left" class="modal fade modal-crud" id="deleteModal" role="dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Delete Employee</h4>
+                	            </div>
+                            <div class="modal-body">
+                                <p>Do you really want to delete this employee?</p>
+                            </div>
+                            <div class="modal-footer">
+                            	<a class="btn btn-default btn-ok">OK</a>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<script>
+		$('#deleteModal').on(
+				'show.bs.modal',
+				function(e) {
+					$(this).find('.btn-ok').attr('href',
+							$(e.relatedTarget).data('href'));
+				});
+	</script>
+</body>
+
+</html>
