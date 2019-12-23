@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Project Managerment</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!--css-->
+		<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+		<link th:href="@{/css/main.css}" rel="stylesheet" />
+		
+		<!--js-->
+		<script th:src="@{/js/bootstrap.js}"></script>
+		<style>
+			.menu-pm {
+				margin-left: -14px;
+				height: 800px;
+				width: 143px;
+			}
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+			}
+	
+			td, th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 1.5px;
+			}
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+			.table-emp {
+				margin-left: 260px;
+				margin-top: 210px;
+			}
+			li {
+				width: 143px;
+			}
+			ul {
+				margin-left: -15px;
+			}
+			a {
+				color: black;
+			}
+			.gtab {
+				width: 1580px;
+				margin-top: -14px;
+				margin-left: -222px;
+				background-color: #d4c9c9;
+			}
+			.btn-ed {
+				padding-bottom: 4px;
+				padding-top: 4px;
+			}
+			.home {
+				background-color: #8fd48f;
+				text-align: center;
+				font-weight: bold;
+			}
+			.search-pm {
+				width: 550px;
+				margin-top: 9px;
+				margin-left: 400px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="container">
+			<ul class="nav nav-tabs gtab" style="background-color: #d4c9c9">
+				<li class="home"><a href="/" style="font-size: 22px">HOME</a></li>
+				<li class="search-pm">
+					<form action="/action_page.php">
+					    <div class="input-group">
+					      <input type="text" class="form-control" placeholder="Search name, address, project,..." name="search">
+					      	<div class="input-group-btn">
+					        	<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+					      	</div>
+					    </div>
+					 </form>
+			    </li>
+			</ul>
+		</div>
+		<div class="col-md-2 menu-pm" style="background-color: #f1f1f1">
+			<ul class="nav nav-pills nav-stacked" style="font-size: 17px">
+				<li><a style="font-size: 20px" href="/">PM</a></li>
+				<li><a href="/employees">Employee</a></li>
+				<li><a href="/project">Project</a></li>
+				<li><a href="/officelocation">Office Location</a></li>
+				<li><a href="/assigned">Assigned</a></li>
+				<li><a href="/office">Office</a></li>
+				<li><a href="/relatives">Relatives</a></li>
+			</ul>
+		</div>
+		
+	</body>
+</html>
